@@ -1,14 +1,15 @@
 //The URIs of the REST endpoint
 IUPS =
-  "https://prod-47.eastus.logic.azure.com:443/workflows/5edcec59b6f24afe8822ece56551d52d/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=2iIogOlmIJhj5y-3IloFnx41fEnbjyzaMNGwTnl5Hls"
-RAI =
-  "https://prod-43.eastus.logic.azure.com:443/workflows/481edfd30f3c460181cff83996afc360/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=HyM_J-AfsTd2zyuHtUBdd6ZpffRfheDjBxYoBjGYhOk"
+  "https://prod-14.ukwest.logic.azure.com:443/workflows/570a207554a7459aba6b85cb982b096a/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Q0y--8rGy1t15RUvd4tD6ZR_NzT0AqJaK0WrxwNOPfw"
 
-BLOB_ACCOUNT = "https://blobstoragesust.blob.core.windows.net"
+RAI =
+  "https://prod-30.ukwest.logic.azure.com:443/workflows/5b3bb97d6a46494c9962757491e15396/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Oqq64HvzGOBr34a5gWMW1GjGSCbXNZt2GkYt8I3dwbE"
+
+  LOB_ACCOUNT = "https://mediashare00783510.blob.core.windows.net/media-share-files00783510"
 
 //Handlers for button clicks
 $(document).ready(function () {
-  $("#retImages").click(function () {
+  $("#etImages").click(function () {
     //Run the get asset list function
     getImages()
   })
@@ -106,35 +107,58 @@ function getImages() {
   })
 }
 
-/*A function to get a list of all the assets and write them to the Div with the AssetList Div
-function getImages(){
-//Replace the current HTML in that div with a loading message
-//$('#ImageList').html('<div class="spinner-border" role="status"><span class="sr-only"> &nbsp;</span>');
+function getImages() {
+  // Replace the current HTML in that div with a loading message
+  $("#ImageList").html(
+    '<div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div>'
+  );
 
-//$.getJSON(RAI, function( data ) {
+  $.getJSON(RAI, function (data) {
+    // Create an array to hold all the retrieved assets
+    var items = [];
 
-  //Create an array to hold all the retrieved assets
-  //var items = [];
+    // Iterate through the returned records and build HTML, incorporating the key values of the record in the data
+    $.each(data, function (key, val) {
+      items.push("<hr />");
 
-  //Iterate through the returned records and build HTML, incorporating the key values of the record in the data
-    $.each(data, function (key, val) 
-	{
+      // Check if the URL indicates a video file (replace '.mp4' with the actual video file extension)
+      if (atob(val["fileName"]).toLowerCase().endsWith(".mp4")) {
+        items.push("<video width='400' controls>");
+        items.push(
+          "<source src='" +
+            LOB_ACCOUNT +
+            val["filePath"] +
+            "' type='video/mp4'>"
+        );
+        items.push("Your browser does not support the video tag.");
+        items.push("</video> <br />");
+      } else {
+        items.push(
+          "<img src='" +
+            LOB_ACCOUNT +
+            val["filePath"] +
+            "' width='400'/> <br />"
+        );
+      }
 
-        items.push("<hr />");
-		//items.push("<img src='" + BLOB_ACCOUNT + val["filePath"] + "'width='400'/> <br />");
-    items.push("<img src='" + BLOB_ACCOUNT + val["filePath"] + "'width='400'/> <br />");
-		items.push("File: " + atob(val["fileName"].$content) + "<br />");
-		items.push("Uploaded by: " + atob(val["userName"].$content) + " (user id: " + atob(val["userID"].$content) + ")<br />");
-		items.push("<hr />");
-
+      items.push("File: " + atob(val["fileName"]) + "<br />");
+      items.push(
+        "Uploaded by: " +
+          atob(val["userName"]) +
+          " (user id: " +
+          atob(val["userID"]) +
+          ")<br />"
+      );
+      items.push("<hr />");
     });
 
-    //Clear the assetlist div 
-    $('#ImageList').empty();
+    // Clear the assetlist div
+    $("#ImageList").empty();
 
-    //Append the contents of the items array to the ImageList Div
-    $( "<ul/>", {
-      "class": "my-new-list",
-      html: items.join( "" )
-    }).appendTo( "#ImageList" );
-  });*/
+    // Append the contents of the items array to the ImageList Div
+    $("<ul/>", {
+      class: "my-new-list",
+      html: items.join(""),
+    }).appendTo("#ImageList");
+  });
+}
