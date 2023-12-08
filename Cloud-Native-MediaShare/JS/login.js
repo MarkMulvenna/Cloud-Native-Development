@@ -1,16 +1,35 @@
-$(document).ready(function () {
-  $("#loginBtn").click(function () {
-    // Dummy login validation
-    var username = $("#username").val()
-    var password = $("#password").val()
+function performLogin(username, password) {
+  var data = {
+    username: username,
+    password: password
+  };
 
-    // Check if username and password match the dummy data
-    if (username === "test" && password === "123") {
-      // If successful, redirect to the main page
-      window.location.href = "index.html"
-    } else {
-      // If login fails, show an alert (you can customize this part)
-      alert("Invalid username or password. Please try again.")
+  $.ajax({
+    type: "POST",
+    url: "https://prod-05.ukwest.logic.azure.com/workflows/29be6dcf66af4e4aa6eaf6e04a734c28/triggers/manual/paths/invoke/auth/v1/login?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=78tmK8oz4ZdSgh-bmadEWZ3EuPmbNMit65mX4YWjtHg",
+    data: data,
+    success: function(response) {
+
+      var userID = response.Table1[0].UserID;
+      var email = response.Table1[0].Email;
+      var username = response.Table1[0].Username;
+
+      localStorage.setItem('userID', userID);
+      localStorage.setItem('email', email);
+      localStorage.setItem('username', username);
+
+      window.location.href = "index.html";
+    },
+    error: function(xhr, status, error) {
+      alert("Invalid username or password. Please try again.");
     }
-  })
-})
+  });
+}
+
+$(document).ready(function() {
+  $("#loginBtn").click(function() {
+    var username = $("#username").val();
+    var password = $("#password").val();
+    performLogin(username, password);
+  });
+});

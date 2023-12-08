@@ -3,13 +3,13 @@ IUPS =
   "https://prod-14.ukwest.logic.azure.com:443/workflows/570a207554a7459aba6b85cb982b096a/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Q0y--8rGy1t15RUvd4tD6ZR_NzT0AqJaK0WrxwNOPfw"
 
 RAI =
-  "https://prod-30.ukwest.logic.azure.com:443/workflows/5b3bb97d6a46494c9962757491e15396/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Oqq64HvzGOBr34a5gWMW1GjGSCbXNZt2GkYt8I3dwbE"
+  "https://prod-07.ukwest.logic.azure.com/workflows/b4d524a68e02444eacacd305560b83a8/triggers/manual/paths/invoke/images/{userID}?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=LPaIhDoMQQvZWXcQibddRz9OXwjZbaqvrRr1yITis7U"
 
   LOB_ACCOUNT = "https://mediashare00783510.blob.core.windows.net/media-share-files00783510"
 
 //Handlers for button clicks
 $(document).ready(function () {
-  $("#etImages").click(function () {
+  $("#getImages").click(function () {
     //Run the get asset list function
     getImages()
   })
