@@ -3,7 +3,7 @@ IUPS =
   "https://prod-14.ukwest.logic.azure.com:443/workflows/570a207554a7459aba6b85cb982b096a/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Q0y--8rGy1t15RUvd4tD6ZR_NzT0AqJaK0WrxwNOPfw"
 
 RAI =
-  "https://prod-07.ukwest.logic.azure.com/workflows/b4d524a68e02444eacacd305560b83a8/triggers/manual/paths/invoke/images/{userID}?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=LPaIhDoMQQvZWXcQibddRz9OXwjZbaqvrRr1yITis7U"
+  "https://prod-07.ukwest.logic.azure.com/workflows/b4d524a68e02444eacacd305560b83a8/triggers/manual/paths/invoke/images/1?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=LPaIhDoMQQvZWXcQibddRz9OXwjZbaqvrRr1yITis7U"
 
   LOB_ACCOUNT = "https://mediashare00783510.blob.core.windows.net/media-share-files00783510"
 
