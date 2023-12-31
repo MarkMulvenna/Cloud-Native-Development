@@ -13,10 +13,12 @@ function performLogin(username, password) {
       var userID = response.Table1[0].UserID;
       var email = response.Table1[0].Email;
       var username = response.Table1[0].Username;
+      var password = response.Table1[0].Password;
 
       localStorage.setItem('userID', userID);
       localStorage.setItem('email', email);
       localStorage.setItem('username', username);
+      localStorage.setItem('password', password);
 
       window.location.href = "index.html";
     },

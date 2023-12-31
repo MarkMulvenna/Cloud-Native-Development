@@ -1,43 +1,54 @@
-//The URIs of the REST endpoint
-IUPS =
-  "https://prod-14.ukwest.logic.azure.com:443/workflows/570a207554a7459aba6b85cb982b096a/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Q0y--8rGy1t15RUvd4tD6ZR_NzT0AqJaK0WrxwNOPfw"
+// The URIs of the REST endpoint
+const IUPS =
+  "https://prod-14.ukwest.logic.azure.com:443/workflows/570a207554a7459aba6b85cb982b096a/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Q0y--8rGy1t15RUvd4tD6ZR_NzT0AqJaK0WrxwNOPfw";
 
-RAI =
-  "https://prod-07.ukwest.logic.azure.com/workflows/b4d524a68e02444eacacd305560b83a8/triggers/manual/paths/invoke/images/1?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=LPaIhDoMQQvZWXcQibddRz9OXwjZbaqvrRr1yITis7U"
+const RAI =
+  "https://prod-30.ukwest.logic.azure.com:443/workflows/6c75893044a0496198c027acef7fdf97/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=GlRWWTMmtW7t2fRn5Vq0K_BZqfSJgNgTcu5iTsidcHk";
 
-  LOB_ACCOUNT = "https://mediashare00783510.blob.core.windows.net/media-share-files00783510"
+const DAI =
+  "https://prod-23.ukwest.logic.azure.com/workflows/37a536ed718440adbed8704dfc3f32b5/triggers/manual/paths/invoke/id/{id}?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=39bMNiDUGCIG3iqXwN_02w948siuaNYEe6vUlVVJP2E"
 
-//Handlers for button clicks
+const USRIMGROUTE =
+  "https://prod-07.ukwest.logic.azure.com/workflows/b4d524a68e02444eacacd305560b83a8/triggers/manual/paths/invoke/images/" + localStorage.userID + "?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=LPaIhDoMQQvZWXcQibddRz9OXwjZbaqvrRr1yITis7U";
+
+const BLOB_ACCOUNT = "https://mediashare00783510.blob.core.windows.net";
+
 $(document).ready(function () {
   $("#getImages").click(function () {
-    //Run the get asset list function
-    getImages()
-  })
+    getImages();
+  });
 
-  //Handler for the new asset submission button
   $("#subNewForm").click(function () {
-    //Execute the submit new asset function
-    submitNewAsset()
-  })
+    submitNewAsset();
+  });
   $("#logoutBtn").click(function () {
-    // Perform logout actions as needed
-    // For example, you can redirect the user back to the login page
-    window.location.href = "login.html"
-  })
-})
+    window.location.href = "login.html";
+  });
 
-//A function to submit a new asset to the REST endpoint
+  $("#UpFile").change(function (event) {
+    const selectedFile = event.target.files[0];
+
+    if (selectedFile) {
+      const fileNameWithoutExtension = selectedFile.name.replace(/\.[^/.]+$/, '');
+      $("#FileName").val(fileNameWithoutExtension);
+    }
+  });
+});
+
+function getFileExtension(fileName) {
+  return fileName.split(".").pop().toLowerCase(); 
+}
+
 function submitNewAsset() {
-  //Create a form data object
-  submitData = new FormData()
+  const submitData = new FormData();
 
-  //Get form variables and append them to the form data object
-  submitData.append("FileName", $("#FileName").val())
-  submitData.append("userID", $("#userID").val())
-  submitData.append("userName", $("#userName").val())
-  submitData.append("File", $("#UpFile")[0].files[0])
+  const selectedFile = $("#UpFile")[0].files[0];
+  submitData.append("FileName", $("#FileName").val() + (selectedFile ? '.' + getFileExtension(selectedFile.name) : ''));
+  console.log("FileName", $("#FileName").val() + (selectedFile ? '.' + getFileExtension(selectedFile.name) : ''));
+  submitData.append("userID", localStorage.userID);
+  submitData.append("userName", localStorage.username);
+  submitData.append("File", selectedFile);
 
-  //Post the form data  to the endpoint, note the need to set the content type header
   $.ajax({
     url: IUPS,
     data: submitData,
@@ -47,86 +58,32 @@ function submitNewAsset() {
     processData: false,
     type: "POST",
     success: function (data) {
-      console.log(data)
+      console.log(data);
     },
-  })
-}
-function getImages() {
-  // Replace the current HTML in that div with a loading message
-  $("#ImageList").html(
-    '<div class="spinner-border" role="status"><span class="sr-only"> &nbsp;</span></div>'
-  )
-
-  $.getJSON(RAI, function (data) {
-    // Create an array to hold all the retrieved assets
-    var items = []
-
-    // Iterate through the returned records and build HTML, incorporating the key values of the record in the data
-    $.each(data, function (key, val) {
-      items.push("<hr />")
-
-      // Check if the URL indicates a video file (replace '.mp4' with the actual video file extension)
-      if (atob(val["fileName"].$content).toLowerCase().endsWith(".mp4")) {
-        items.push("<video width='400' controls>")
-        items.push(
-          "<source src='" +
-            BLOB_ACCOUNT +
-            val["filePath"] +
-            "' type='video/mp4'>"
-        )
-        items.push("Your browser does not support the video tag.")
-        items.push("</video> <br />")
-      } else {
-        items.push(
-          "<img src='" +
-            BLOB_ACCOUNT +
-            val["filePath"] +
-            "' width='400'/> <br />"
-        )
-      }
-
-      items.push("File: " + atob(val["fileName"].$content) + "<br />")
-      items.push(
-        "Uploaded by: " +
-          atob(val["userName"].$content) +
-          " (user id: " +
-          atob(val["userID"].$content) +
-          ")<br />"
-      )
-      items.push("<hr />")
-    })
-
-    // Clear the assetlist div
-    $("#ImageList").empty()
-
-    // Append the contents of the items array to the ImageList Div
-    $("<ul/>", {
-      class: "my-new-list",
-      html: items.join(""),
-    }).appendTo("#ImageList")
-  })
+  });
 }
 
 function getImages() {
-  // Replace the current HTML in that div with a loading message
+  console.log("Running");
   $("#ImageList").html(
     '<div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div>'
   );
 
-  $.getJSON(RAI, function (data) {
-    // Create an array to hold all the retrieved assets
+  let selectedEndpoint = $("#btnViewMyFiles").is(":checked") ? USRIMGROUTE : RAI;
+
+  $.getJSON(selectedEndpoint, function (data) {
     var items = [];
 
-    // Iterate through the returned records and build HTML, incorporating the key values of the record in the data
     $.each(data, function (key, val) {
       items.push("<hr />");
 
-      // Check if the URL indicates a video file (replace '.mp4' with the actual video file extension)
-      if (atob(val["fileName"]).toLowerCase().endsWith(".mp4")) {
-        items.push("<video width='400' controls>");
+      const isUserItem = val["userID"] == localStorage.userID;
+
+      if ((val["fileName"]).toLowerCase().endsWith(".mp4")) {
+        items.push("<video width='400' controls id='" + val["id"] + "'>");
         items.push(
           "<source src='" +
-            LOB_ACCOUNT +
+            BLOB_ACCOUNT +
             val["filePath"] +
             "' type='video/mp4'>"
         );
@@ -135,30 +92,68 @@ function getImages() {
       } else {
         items.push(
           "<img src='" +
-            LOB_ACCOUNT +
+            BLOB_ACCOUNT +
             val["filePath"] +
-            "' width='400'/> <br />"
+            "' width='400' id='" +
+            val["id"] +
+            "'/> <br />"
         );
       }
 
-      items.push("File: " + atob(val["fileName"]) + "<br />");
+      items.push("File: " + (val["fileName"]) + "<br />");
       items.push(
         "Uploaded by: " +
-          atob(val["userName"]) +
+          val["userName"] +
           " (user id: " +
-          atob(val["userID"]) +
+          val["userID"] +
           ")<br />"
       );
+
+      if (isUserItem) {
+        items.push(
+          "<button class='btn btn-danger deleteButton' data-item-id='" +
+            val["id"] + 
+            "'>Delete</button><br />"
+        );
+
+        items.push(
+          "<button class='button' 'data-item-id='" 
+          + val["id"] + 
+            "'>Update</button><br />"
+        ) 
+      }
+
       items.push("<hr />");
     });
 
-    // Clear the assetlist div
     $("#ImageList").empty();
 
-    // Append the contents of the items array to the ImageList Div
     $("<ul/>", {
       class: "my-new-list",
       html: items.join(""),
     }).appendTo("#ImageList");
+
+    $(".deleteButton").click(function () {
+      const itemId = $(this).data("item-id");
+      deleteMedia(itemId);
+    });
+  });
+}
+
+function deleteMedia(imageId) {
+  const deleteEndpoint = DAI;
+  
+  const updatedEndpoint = deleteEndpoint.replace("{id}", imageId);
+
+  $.ajax({
+    url: updatedEndpoint,
+    type: 'DELETE',
+    success: function (response) {
+      console.log(`Image/Video with ID ${imageId} deleted.`);
+      setTimeout(getImages(), 500);
+    },
+    error: function (xhr, status, error) {
+      console.error(`Error deleting Image/Video with ID ${imageId}:`, error);
+    }
   });
 }
