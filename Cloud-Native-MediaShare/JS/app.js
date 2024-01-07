@@ -25,6 +25,7 @@ $(document).ready(function () {
     submitNewAsset();
   });
   $("#logoutBtn").click(function () {
+    localStorage.clear();
     window.location.href = "login.html";
   });
 
