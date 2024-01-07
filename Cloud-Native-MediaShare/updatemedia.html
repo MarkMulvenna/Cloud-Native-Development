@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Asset Track</title>
+    <link rel="stylesheet" type="text/css" href="CSS/bootstrap.min.css" />
+    <script type="text/javascript" src="JS/bootstrap.js"></script>
+    <script type="text/javascript" src="JS/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="JS/updatemedia.js"></script>
+    <style>
+      .container-wrap {
+        border: 1px solid #ddd;
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+        background-color: #f7f7f7;
+      }
+      .media-asset {
+        width: 25%;
+        height: auto;
+        display: block;
+        margin: 0 auto 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container-wrap">
+      <img src="" class="media-asset" />
+
+      <div class="row align-items-start">
+        <div class="col-2"></div>
+
+        <div
+          class="col-8"
+          style="text-align: left; border-bottom: 1px solid #222222"
+        >
+          <h4>Add Image</h4>
+
+          <form style="font-size: 10pt" id="newAssetForm">
+            <div class="mb-3">
+              <label for="FileName" class="form-label">Change File Name</label>
+              <input type="text" class="form-control" id="FileName" />
+            </div>
+
+            <div class="mb-3">
+              <label for="UpFile" class="form-label">Change Media Asset</label>
+              <input type="file" class="form-control" id="UpFile" />
+            </div>
+
+            <button type="button" id="subNewForm" class="btn btn-primary">
+              Submit
+            </button>
+            <br /><br />
+          </form>
+        </div>
+
+        <div class="col-2"></div>
+      </div>
+    </div>
+  </body>
+</html>

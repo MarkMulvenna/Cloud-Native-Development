@@ -7,7 +7,7 @@ const AUTHUPDTENDPOINT =
   "https://prod-19.ukwest.logic.azure.com/workflows/876b64fcecf9467daf8862dee23c6f79/triggers/manual/paths/invoke/auth/v1/update?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=WdHuE-ZsZrA-W0Tiz61ywwj5GGyjBaE2lVQGENLua1Y";
 
 document.addEventListener("DOMContentLoaded", function () {
-  initializeFields();
+  initializeAccountFields();
 
   document
     .getElementById("confirmDeleteButton")
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .addEventListener("click", updateUser)
 });
 
-function initializeFields() {
+function initializeAccountFields() {
   document.getElementById("userName").value = localStorage.username || "";
   document.getElementById("email").value = localStorage.email || "";
   document.getElementById("password").value = localStorage.password || "";

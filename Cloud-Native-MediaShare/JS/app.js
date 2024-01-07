@@ -11,6 +11,9 @@ const DAI =
 const USRIMGROUTE =
   "https://prod-07.ukwest.logic.azure.com/workflows/b4d524a68e02444eacacd305560b83a8/triggers/manual/paths/invoke/images/" + localStorage.userID + "?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=LPaIhDoMQQvZWXcQibddRz9OXwjZbaqvrRr1yITis7U";
 
+const UIA = 
+  "https://prod-18.ukwest.logic.azure.com/workflows/51006aa2614c4d3b9cdfff33fccdb36a/triggers/manual/paths/invoke/id/{id}?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=z7OvWddJLYMfFXNoVG_JkKJ8toVJOTfQtQpMTie4uK8"
+
 const BLOB_ACCOUNT = "https://mediashare00783510.blob.core.windows.net";
 
 $(document).ready(function () {
@@ -34,8 +37,8 @@ $(document).ready(function () {
     }
   });
 });
-
-function getFileExtension(fileName) {
+ 
+  function getFileExtension(fileName) {
   return fileName.split(".").pop().toLowerCase(); 
 }
 
@@ -117,7 +120,7 @@ function getImages() {
         );
 
         items.push(
-          "<button class='button' 'data-item-id='" 
+          "<button class='button updateButton' data-item-id='" 
           + val["id"] + 
             "'>Update</button><br />"
         ) 
@@ -137,6 +140,12 @@ function getImages() {
       const itemId = $(this).data("item-id");
       deleteMedia(itemId);
     });
+
+    $(".updateButton").click(function () {
+      const itemId = $(this).data("item-id");
+      localStorage.setItem('updateId', itemId);
+      window.location.href = "updateMedia.html";
+    });
   });
 }
 
@@ -149,7 +158,7 @@ function deleteMedia(imageId) {
     url: updatedEndpoint,
     type: 'DELETE',
     success: function (response) {
-      console.log(`Image/Video with ID ${imageId} deleted.`);
+      console.log(`Image/Video with ID ${imageId} deleted.`, response);
       setTimeout(getImages(), 500);
     },
     error: function (xhr, status, error) {

@@ -32,6 +32,6 @@ $(document).ready(function() {
   $("#loginBtn").click(function() {
     var username = $("#username").val();
     var password = $("#password").val();
-    performLogin(username, password);
+    performLogin(username, password)
   });
 });
