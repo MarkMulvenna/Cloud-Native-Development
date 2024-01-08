@@ -1,0 +1,9 @@
+.return-to-home {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: #dffded;
+    color: #000000;
+    padding: 8px 16px;
+    text-decoration: none;
+  }

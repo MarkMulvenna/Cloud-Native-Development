@@ -1,61 +1,59 @@
-
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-  }
-  
-  header {
-    margin-bottom: 20px;
-    padding: 15px 0;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  header h1 {
-    color: #333;
-    margin: 0;
-  }
-  
-  header h3 {
-    color: blue;
-    
-  }
-  section form {
-    margin-bottom: 20px;
-  }
-  
-  section form h2 {
-    margin-bottom: 15px;
-    color: #333;
-  }
-  
-  .form-label {
-    font-weight: bold;
-    color: #333;
-  }
-  
-  .form-control {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 15px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-  }
-  
-  #subNewForm {
-    margin-top: 10px;
-  }
-  
-  section .btn {
-    margin-right: 10px;
-  }
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
 
-  #ImageList {
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 15px;
-    background-color: #fff;
-    color: #333;
-  }
-  
+header {
+  margin-bottom: 20px;
+  padding: 15px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+header h1 {
+  color: #00f899;
+  margin: 0;
+}
+
+header h2 {
+  color: blue;
+}
+
+section form {
+  margin-bottom: 20px;
+}
+
+section form h2 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.form-label {
+  font-weight: bold;
+  color: #333;
+}
+
+.form-control {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+#subNewForm {
+  margin-top: 10px;
+}
+
+section .btn {
+  margin-right: 10px;
+}
+
+#ImageList {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 15px;
+  background-color: #fff;
+  color: #333;
+}

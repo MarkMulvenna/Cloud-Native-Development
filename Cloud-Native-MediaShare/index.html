@@ -1,102 +1,103 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" ng-app="Dashboard">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Asset Track</title>
+    <link rel="stylesheet" type="text/css" href="CSS/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="CSS/index.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-
-  <title>Asset Track</title>
-
-  <link rel="stylesheet" type="text/css" href="CSS/bootstrap.min.css">
-  <script type="text/javascript" src="JS/bootstrap.js"></script>
-  <script type="text/javascript" src="JS/bootstrap.bundle.min.js"></script>
-  <script type="text/javascript" src="JS/jquery-3.6.0.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="CSS/index.css">
-
-  <script type="text/javascript" src="JS/app.js"></script>
-
-</head>
-<body>
-
-  <div class="container">
-    <div>
-      <a href="manageaccount.html">
-        Welcome, <span id="usernameDisplay">localStorage.username</span>
-      </a>
-    </div>
-
-    <script>
-      const username = localStorage.username;
-  
-      document.getElementById('usernameDisplay').innerText = username;
-    </script>
-
-    <div class="row align-items-start">
-      <div class="col-2"></div>
-
-      <div class="col-8" style="text-align: center;">
-        <h3>Image Share</h3>
+  <body>
+    <header class="container">
+      <h1>Media Share</h1>
+      <div class="d-flex justify-content-between align-items-center">
+        <div id="welcomeMessage">
+          <a href="manageaccount.html"
+            >Welcome, <span id="usernameDisplay"></span
+          ></a>
+        </div>
+        <div id="loginMessage" style="display: none;">
+          It looks like you're not logged in,
+          <a href="login.html"> log in here!</a>
+        </div>
+        <div class="ms-auto">
+          <button id="logoutBtn" type="button" class="btn btn-danger">
+            Logout
+          </button>
+        </div>
       </div>
+      <a href="translator.html"> Want to try our translator?</a>
+    </header>
 
-      <div class="col-2 text-end">
-        <button id="logoutBtn" type="button" class="btn btn-danger">Logout</button>
-      </div>
-    </div>
-
-    <div class="row align-items-start">
-      <div class="col-2"></div>
-
-      <div class="col-8" style="text-align: left;border-bottom:1px solid #222222;">
-        <p>Add Image</p>
-
-        <form style="font-size: 10pt;" id="newAssetForm">
-          <div class="mb-3">
+    <main class="container">
+      <section>
+        <h2>Upload Media</h2>
+        <form id="newAssetForm">
+          <div class="mb-3" style="margin-top: 2.5%;">
             <label for="FileName" class="form-label">File Name</label>
-            <input type="text" class="form-control" id="FileName">
+            <input type="text" class="form-control" id="FileName" />
           </div>
-
           <div class="mb-3">
             <label for="UpFile" class="form-label">File to Upload</label>
-            <input type="file" class="form-control" id="UpFile">
+            <input type="file" class="form-control" id="UpFile" />
           </div>
-
-          <button type="button" id="subNewForm" class="btn btn-primary">Submit</button> <br /><br />
-
+          <button type="button" id="subNewForm" class="btn btn-primary">
+            Submit
+          </button>
         </form>
-      </div>
+      </section>
 
-      <div class="col-2"></div>
-    </div>
-
-    <div class="row align-items-start">
-      <div class="col-2"></div>
-
-      <div class="col-8" style="text-align: left;">
-        <div style="padding:5px;">
+      <section>
+        <div style="padding: 5px">
           <div class="d-flex justify-content-between align-items-center">
-            <button id="getImages" type="button" class="btn btn-primary">View Images</button>
+            <button id="getImages" type="button" class="btn btn-primary">
+              View Images
+            </button>
             <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" id="btnViewMyFiles">
-              <label class="form-check-label" for="btnViewMyFiles">Show only my files</label>
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="btnViewMyFiles"
+              />
+              <label class="form-check-label" for="btnViewMyFiles"
+                >Show only my files</label
+              >
             </div>
           </div>
         </div>
-      </div>
-      
-
-        <div id="ImageList">
-
-          <h4>Please click the view Images button if you wish to view images on the system.</h4>
-
+        <div id="ImageList" class="border rounded p-3 mt-3">
+          <h4>
+            Please click the view Images button if you wish to view images on
+            the system.
+          </h4>
         </div>
-      </div>
+      </section>
+    </main>
 
-      <div class="col-2"></div>
-      <div style="padding:5px;">
-      </div>
-    </div>
+    <script type="text/javascript" src="JS/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="JS/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="JS/app.js"></script>
 
-  </div>
+    <script>
+      const username = localStorage.username;
+      const welcomeMessageDisplay = document.getElementById("welcomeMessage");
+      const loginMessage = document.getElementById("loginMessage");
+      const logoutBtn = document.getElementById("logoutBtn");
+      const uploadForm = document.getElementById("newAssetForm");
 
-</body>
-
+      if (username && username != "") {
+        document.getElementById("usernameDisplay").innerText = username;
+      } 
+      
+      else {
+        welcomeMessage.style.display = "none";
+        logoutBtn.style.display = "none";
+        loginMessage.style.display = "block";
+        
+        for (let i = 0; i <  uploadForm.elements.length; i++) {
+          uploadForm.elements[i].disabled = true;
+        }
+      }
+    </script>
+  </body>
 </html>

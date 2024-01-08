@@ -4,9 +4,12 @@
     <meta charset="UTF-8" />
     <title>Asset Track</title>
     <link rel="stylesheet" type="text/css" href="CSS/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="CSS/returnhome.css" />
     <script type="text/javascript" src="JS/bootstrap.js"></script>
     <script type="text/javascript" src="JS/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="JS/updatemedia.js"></script>
+    <script type="text/javascript" src="JS/app.js"></script>    
+    
     <style>
       .container-wrap {
         border: 1px solid #ddd;
@@ -35,7 +38,7 @@
           class="col-8"
           style="text-align: left; border-bottom: 1px solid #222222"
         >
-          <h4>Add Image</h4>
+          <h4>Update Media</h4>
 
           <form style="font-size: 10pt" id="newAssetForm">
             <div class="mb-3">
@@ -48,7 +51,7 @@
               <input type="file" class="form-control" id="UpFile" />
             </div>
 
-            <button type="button" id="subNewForm" class="btn btn-primary">
+            <button type="button" id="updateMediaForm" class="btn btn-primary">
               Submit
             </button>
             <br /><br />
@@ -59,4 +62,5 @@
       </div>
     </div>
   </body>
+  <a href="index.html" class="return-to-home">Return to Home</a>
 </html>

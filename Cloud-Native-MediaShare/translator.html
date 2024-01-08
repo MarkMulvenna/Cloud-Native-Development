@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Translator </title>
+  <link rel="stylesheet" type="text/css" href="CSS/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="CSS/returnhome.css">
+  <link rel="stylesheet" type="text/css" href="CSS/translator.css">
+  <script type="text/javascript" src="JS/jquery-3.6.0.min.js"></script>
+  <script type="text/javascript" src="JS/bootstrap.bundle.min.js"></script>
+  <script type="text/javascript" src="JS/translator.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="translator-container">
+      <h3>Translator</h3>
+      <form id="translateForm">
+        <div class="form-group">
+            <label for="targetLanguage">Target Language</label>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                  Select Language
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <li><a class="dropdown-item" href="#">DE</a></li>
+                  <li><a class="dropdown-item" href="#">ES</a></li>
+                  <li><a class="dropdown-item" href="#">FR</a></li>
+                </ul>
+              </div>              
+            </div>
+               
+          <div class="form-group">
+            <label for="targetLanguage">Text to Translate</label>
+            <input type="text" class="form-control" id="rawText" required>
+          </div>
+          <br style="padding-top: 20px;">
+          <textarea id="translationResponse" style="height: 75px;" class="form-control"></textarea>
+        <button type="button" id="translateBtn" class="btn btn-primary" style="padding-top: 10px;">Translate</button>
+        <div id="translationError" type="text" style="color: red; padding-top: 10px ;"></div>
+      </form>
+    </div>
+    </div>
+  </div>
+</body>
+
+
+<a href="index.html" class="return-to-home">Return to Home</a>
