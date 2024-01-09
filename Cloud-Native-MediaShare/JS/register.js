@@ -22,6 +22,7 @@ $(document).ready(function () {
       success: function (response) {
         console.log("Registration successful", response);
         performLogin(formData.username, formData.password);
+        window.location.href = "index.html";
       },
       error: function (xhr, status, error) {
         console.error("Registration error", status, error);
