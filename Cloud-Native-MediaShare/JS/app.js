@@ -148,7 +148,7 @@ function getImages() {
     $(".updateButton").click(function () {
       const itemId = $(this).data("item-id");
       localStorage.setItem('updateId', itemId);
-      window.location.href = "updateMedia.html";
+      window.location.href = "updatemedia.html";
     });
   });
 }
