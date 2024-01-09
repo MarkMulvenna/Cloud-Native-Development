@@ -157,7 +157,7 @@ function deleteMedia(imageId) {
     type: 'DELETE',
     success: function (response) {
       console.log(`Image/Video with ID ${imageId} deleted.`, response);
-      setTimeout(getImages(), 1000);
+      setTimeout(getImages(), 3000);
     },
     error: function (xhr, status, error) {
       console.error(`Error deleting Image/Video with ID ${imageId}:`, error);
