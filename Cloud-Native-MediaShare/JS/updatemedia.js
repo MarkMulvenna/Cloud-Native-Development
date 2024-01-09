@@ -74,7 +74,6 @@ $(document).ready(function() {
 });
 
 function initializeMediaUpdateFields(response) {
-    //const responseData = JSON.parse(localStorage.responseData);
     $('.media-asset').attr('src', BLOB_ACCOUNT + response["filePath"])
     document.getElementById("FileName").value = shaveFileExtention(response["fileName"]);
     document.getElementById("UpFile") = null;
