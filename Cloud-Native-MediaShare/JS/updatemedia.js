@@ -64,6 +64,7 @@ console.log(formDataArray);
         type: "PUT",
         success: function (data) {
           console.log(data);
+          location.reload();
         },
       });
 }

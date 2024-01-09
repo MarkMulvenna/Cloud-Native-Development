@@ -60,8 +60,14 @@ function submitNewAsset() {
     type: "POST",
     success: function (data) {
       console.log(data);
+      clearForm();
     },
   });
+}
+
+function clearForm() {
+  document.getElementById('FileName').value = '';
+  document.getElementById('UpFile').value = '';
 }
 
 function getImages() {
@@ -157,7 +163,10 @@ function deleteMedia(imageId) {
     type: 'DELETE',
     success: function (response) {
       console.log(`Image/Video with ID ${imageId} deleted.`, response);
-      setTimeout(getImages(), 3000);
+      const refreshImages = document.getElementById('getImages')
+      setTimeout(function() {
+        refreshImages.click(); 
+      }, 1500);
     },
     error: function (xhr, status, error) {
       console.error(`Error deleting Image/Video with ID ${imageId}:`, error);
